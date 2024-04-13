@@ -1,15 +1,17 @@
-using System.Collections;
-using System.Collections.Generic;
+using CptLost.ActionSystem;
 using UnityEngine;
 using Zenject;
 
 public class GridObjectData
 {
-    public Vector2Int GridPosition;
+    public Vector3Int GridPosition;
 }
 
 public abstract class GridObject : MonoBehaviour
 {
+    [SerializeField]
+    private ActionSystem m_actionSystem;
+
     public GridObjectData GridObjectData = new();
 
     [Inject]
@@ -23,5 +25,13 @@ public abstract class GridObject : MonoBehaviour
     protected virtual void OnDisable()
     {
         m_gridManager.UnregisterObject(this);
+    }
+
+    public void RequesAction(GridAction gridAction)
+    {
+        if (m_actionSystem.IsActionActive())
+            return;
+
+        m_actionSystem.SetCurrentAction(gridAction);
     }
 }

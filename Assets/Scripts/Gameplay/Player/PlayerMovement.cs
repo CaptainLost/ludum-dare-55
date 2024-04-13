@@ -13,7 +13,7 @@ public class PlayerMovement : MonoBehaviour
         m_gridManager.PlayerDatabase.LoopThroughtAllObjects(
             (gridObject) =>
             {
-
+                Vector3Int targetPosition = gridObject.GridObjectData.GridPosition + moveInput;
             });
     }
 }
