@@ -37,16 +37,16 @@ public class GridManager : MonoBehaviour
     [field: SerializeField]
     public GridDatabase PlayerDatabase { get; private set; } = new();
 
-    public GridDatabase GridDatabase { get; private set; } = new();
+    public GridDatabase ObjectDatabase { get; private set; } = new();
 
     public void RegisterObject(GridObject gridObject)
     {
-        GridDatabase.RegisterObject(gridObject);
+        ObjectDatabase.RegisterObject(gridObject);
     }
 
     public void UnregisterObject(GridObject gridObject)
     {
-        GridDatabase.UnregisterObject(gridObject);
+        ObjectDatabase.UnregisterObject(gridObject);
     }
 
     public bool HasStaticCollision(Vector3Int gridPosition)

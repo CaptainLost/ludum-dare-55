@@ -4,19 +4,15 @@ public class MoveAction : GridAction
 {
     public bool IsFinished { get; private set; }
 
-    private GridManager m_gridManager;
+    protected Vector3Int m_cellTargetPosition;
+    protected Vector3 m_worldTargetPosition;
+    protected float m_moveSpeed;
 
-    private Vector3Int m_cellTargetPosition;
-    private Vector3 m_worldTargetPosition;
-    private float m_moveSpeed;
+    protected bool m_isActionValid;
 
-    private bool m_isActionValid;
-
-    public MoveAction(GridObject owningObject, Vector3Int gridTargetPosition, float moveSpeed)
-        : base(owningObject)
+    public MoveAction(GridObject owningObject, GridManager gridManager, Vector3Int gridTargetPosition, float moveSpeed)
+        : base(owningObject, gridManager)
     {
-        m_gridManager = m_owningObject.GridObjectData.GridManager;
-
         m_cellTargetPosition = gridTargetPosition;
         m_worldTargetPosition = m_gridManager.CellToWorld(m_cellTargetPosition);
         m_moveSpeed = moveSpeed;
@@ -25,6 +21,11 @@ public class MoveAction : GridAction
     public override void OnActionStart()
     {
         m_isActionValid = IsMoveValid();
+
+        if (m_isActionValid)
+        {
+            m_owningObject.GridObjectData.GridPosition = m_cellTargetPosition;
+        }
     }
 
     public override void OnActionStop()
@@ -36,10 +37,10 @@ public class MoveAction : GridAction
     {
         Vector3 worldNewPosition = Vector3.MoveTowards(m_owningObject.transform.position, m_worldTargetPosition, m_moveSpeed * Time.deltaTime);
 
-        Vector3Int cellNewPosition = m_gridManager.WorldToCell(worldNewPosition);
+        //Vector3Int cellNewPosition = m_gridManager.WorldToCell(worldNewPosition);
 
         m_owningObject.transform.position = worldNewPosition;
-        m_owningObject.GridObjectData.GridPosition = cellNewPosition;
+        //m_owningObject.GridObjectData.GridPosition = cellNewPosition;
     }
 
     public override bool ShouldActionStop()
@@ -54,8 +55,20 @@ public class MoveAction : GridAction
 
     protected virtual bool IsMoveValid()
     {
-        if (m_owningObject.HasFlag(GridObjectFlags.Static_Collision) && m_gridManager.HasStaticCollision(m_cellTargetPosition))
+        if (m_owningObject.HasFlag(EGridObjectFlags.Static_Collision) && m_gridManager.HasStaticCollision(m_cellTargetPosition))
             return false;
+
+        if (m_owningObject.HasFlag(EGridObjectFlags.Dynamic_Collision))
+        {
+            foreach (GridObject gridObject in m_gridManager.ObjectDatabase.GridObjects)
+            {
+                if (m_owningObject == gridObject || gridObject.GridObjectData.GridPosition != m_cellTargetPosition)
+                    continue;
+
+                if (gridObject.HasFlag(EGridObjectFlags.Dynamic_Collision))
+                    return false;
+            }
+        }
 
         return true;
     }

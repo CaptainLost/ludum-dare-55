@@ -1,15 +1,11 @@
 using CptLost.ActionSystem;
+using System;
 using UnityEngine;
 using Zenject;
 
+[Serializable]
 public class GridObjectData
 {
-    public GridObjectData(GridManager gridManager)
-    {
-        GridManager = gridManager;
-    }
-
-    public GridManager GridManager { get; private set; }
     public Vector3Int GridPosition;
 }
 
@@ -18,7 +14,7 @@ public abstract class GridObject : MonoBehaviour
     [SerializeField]
     private ActionSystem m_actionSystem;
     [SerializeField]
-    private GridObjectFlags m_objectFlags;
+    private EGridObjectFlags m_objectFlags;
 
     public GridObjectData GridObjectData { get; private set; }
 
@@ -37,9 +33,9 @@ public abstract class GridObject : MonoBehaviour
 
     protected virtual void Awake()
     {
-        GridObjectData = new GridObjectData(m_gridManager);
+        GridObjectData = new GridObjectData();
 
-        transform.position = m_gridManager.CellToWorld(GridObjectData.GridPosition);
+        SnapToCurrentCellPosition();
     }
 
     public void RequestAction(GridAction gridAction)
@@ -50,8 +46,14 @@ public abstract class GridObject : MonoBehaviour
         m_actionSystem.SetCurrentAction(gridAction);
     }
 
-    public bool HasFlag(GridObjectFlags flag)
+    public bool HasFlag(EGridObjectFlags flag)
     {
         return m_objectFlags.HasFlag(flag);
+    }
+
+    private void SnapToCurrentCellPosition()
+    {
+        GridObjectData.GridPosition = m_gridManager.WorldToCell(transform.position);
+        transform.position = m_gridManager.CellToWorld(GridObjectData.GridPosition);
     }
 }

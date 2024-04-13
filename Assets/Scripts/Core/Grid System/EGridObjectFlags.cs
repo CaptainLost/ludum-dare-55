@@ -1,9 +1,10 @@
 ﻿using System;
 
 [Flags]
-public enum GridObjectFlags
+public enum EGridObjectFlags
 {
     None,
     Static_Collision,
     Dynamic_Collision,
+    Pushable,
 }

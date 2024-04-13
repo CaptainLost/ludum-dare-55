@@ -16,9 +16,12 @@ public class MoveInput : MonoBehaviour
         int inputX = Mathf.RoundToInt(moveInput.x);
         int inputY = Mathf.RoundToInt(moveInput.y);
 
-        if (moveInput.x != 0f || moveInput.y != 0f)
-        {
-            m_playerMovement.Move(new Vector3Int(inputX, inputY, 0));
-        }
+        if (inputX == 0 && inputY == 0)
+            return;
+
+        if (Mathf.Abs(inputX) == Mathf.Abs(inputY))
+            inputY = 0;
+
+        m_playerMovement.Move(new Vector3Int(inputX, inputY, 0));
     }
 }
