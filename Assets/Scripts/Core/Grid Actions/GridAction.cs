@@ -13,5 +13,5 @@ public abstract class GridAction : IAction
     public abstract void OnActionStop();
     public abstract void OnActionUpdate();
     public abstract bool ShouldActionStop();
-    public abstract void Undo();
+    public abstract void UndoAction();
 }

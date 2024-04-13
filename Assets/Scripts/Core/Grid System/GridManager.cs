@@ -1,12 +1,13 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 [Serializable]
 public class GridDatabase
 {
     [field: SerializeField]
-    public HashSet<GridObject> GridObjects { get; private set; } = new HashSet<GridObject>();
+    public List<GridObject> GridObjects { get; private set; } = new List<GridObject>(); // Should be hash set, but it isn't serializable :c
 
     public void RegisterObject(GridObject gridObject)
     {
@@ -29,7 +30,10 @@ public class GridDatabase
 
 public class GridManager : MonoBehaviour
 {
-    [SerializeField] private Grid m_grid;
+    [SerializeField]
+    private Grid m_grid;
+    [SerializeField]
+    private Tilemap m_collisionTilemap;
     [field: SerializeField]
     public GridDatabase PlayerDatabase { get; private set; } = new();
 
@@ -45,8 +49,21 @@ public class GridManager : MonoBehaviour
         GridDatabase.UnregisterObject(gridObject);
     }
 
-    public Vector3 GridCellToWorld(Vector3Int gridPosition)
+    public bool HasStaticCollision(Vector3Int gridPosition)
+    {
+        if (m_collisionTilemap.HasTile(gridPosition))
+            return true;
+
+        return false;
+    }
+
+    public Vector3 CellToWorld(Vector3Int gridPosition)
     {
         return m_grid.GetCellCenterWorld(gridPosition);
+    }
+
+    public Vector3Int WorldToCell(Vector3 worldPosition)
+    {
+        return m_grid.WorldToCell(worldPosition);
     }
 }
