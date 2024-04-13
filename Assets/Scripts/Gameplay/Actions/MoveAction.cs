@@ -10,6 +10,8 @@ public class MoveAction : GridAction
     private Vector3 m_worldTargetPosition;
     private float m_moveSpeed;
 
+    private bool m_isActionValid;
+
     public MoveAction(GridObject owningObject, Vector3Int gridTargetPosition, float moveSpeed)
         : base(owningObject)
     {
@@ -22,7 +24,7 @@ public class MoveAction : GridAction
 
     public override void OnActionStart()
     {
-        
+        m_isActionValid = IsMoveValid();
     }
 
     public override void OnActionStop()
@@ -42,7 +44,7 @@ public class MoveAction : GridAction
 
     public override bool ShouldActionStop()
     {
-        return m_owningObject.transform.position == m_worldTargetPosition;
+        return !m_isActionValid || (m_owningObject.transform.position == m_worldTargetPosition);
     }
 
     public override void UndoAction()
