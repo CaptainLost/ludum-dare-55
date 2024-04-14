@@ -1,3 +1,4 @@
+using CptLost.EventBus;
 using UnityEngine;
 
 public class MoveAction : GridAction
@@ -30,17 +31,17 @@ public class MoveAction : GridAction
 
     public override void OnActionStop()
     {
-        
+        if (!m_isActionValid)
+            return;
+
+        EventBus<ObjectEnterCellEvent>.Invoke(new ObjectEnterCellEvent(m_cellTargetPosition, m_owningObject));
     }
 
     public override void OnActionUpdate()
     {
         Vector3 worldNewPosition = Vector3.MoveTowards(m_owningObject.transform.position, m_worldTargetPosition, m_moveSpeed * Time.deltaTime);
 
-        //Vector3Int cellNewPosition = m_gridManager.WorldToCell(worldNewPosition);
-
         m_owningObject.transform.position = worldNewPosition;
-        //m_owningObject.GridObjectData.GridPosition = cellNewPosition;
     }
 
     public override bool ShouldActionStop()
@@ -60,7 +61,7 @@ public class MoveAction : GridAction
 
         if (m_owningObject.HasFlag(EGridObjectFlags.Dynamic_Collision))
         {
-            foreach (GridObject gridObject in m_gridManager.ObjectDatabase.GridObjects)
+            foreach (GridObject gridObject in m_gridManager.ObjectDatabase.GridObjects) // Reword to not loop throught all objects
             {
                 if (m_owningObject == gridObject || gridObject.GridObjectData.GridPosition != m_cellTargetPosition)
                     continue;

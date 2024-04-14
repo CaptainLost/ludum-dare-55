@@ -26,7 +26,9 @@ public class PlayerMovement : MonoBehaviour
         Vector3Int targetPosition = gridObject.GridObjectData.GridPosition + moveInput;
         GridObject objectAtTarget = m_gridManager.GetObjectAtCell(targetPosition);
 
-        if (objectAtTarget != null)
+        if (objectAtTarget != null
+            && objectAtTarget.HasFlag(EGridObjectFlags.Dynamic_Collision)
+            && gridObject.HasFlag(EGridObjectFlags.Dynamic_Collision))
         {
             if (!objectAtTarget.HasFlag(EGridObjectFlags.Pushable))
                 return false;
