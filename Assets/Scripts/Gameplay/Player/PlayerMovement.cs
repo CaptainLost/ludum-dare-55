@@ -14,11 +14,29 @@ public class PlayerMovement : MonoBehaviour
         m_gridManager.PlayerDatabase.LoopThroughtAllObjects(
             (gridObject) =>
             {
-                Vector3Int targetPosition = gridObject.GridObjectData.GridPosition + moveInput;
-
-                PlayerMoveAction moveAction = new PlayerMoveAction(gridObject, m_gridManager, targetPosition, m_moveSpeed);
-
-                gridObject.RequestAction(moveAction);
+                TryMoveAndPush(gridObject, moveInput);
             });
+    }
+
+    private bool TryMoveAndPush(GridObject gridObject, Vector3Int moveInput)
+    {
+        if (gridObject.HasActionActive())
+            return false;
+
+        Vector3Int targetPosition = gridObject.GridObjectData.GridPosition + moveInput;
+        GridObject objectAtTarget = m_gridManager.GetObjectAtCell(targetPosition);
+
+        if (objectAtTarget != null)
+        {
+            if (!objectAtTarget.HasFlag(EGridObjectFlags.Pushable))
+                return false;
+
+            if (!TryMoveAndPush(objectAtTarget, moveInput))
+                return false;
+        }
+
+        MoveAction moveAction = new MoveAction(gridObject, m_gridManager, targetPosition, m_moveSpeed);
+
+        return gridObject.RequestAction(moveAction);
     }
 }

@@ -49,6 +49,17 @@ public class GridManager : MonoBehaviour
         ObjectDatabase.UnregisterObject(gridObject);
     }
 
+    public GridObject GetObjectAtCell(Vector3Int gridPosition) // To rework
+    {
+        foreach (GridObject gridObject in ObjectDatabase.GridObjects)
+        {
+            if (gridObject.GridObjectData.GridPosition == gridPosition)
+                return gridObject;
+        }
+
+        return null;
+    }
+
     public bool HasStaticCollision(Vector3Int gridPosition)
     {
         if (m_collisionTilemap.HasTile(gridPosition))

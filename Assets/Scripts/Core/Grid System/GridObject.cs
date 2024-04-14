@@ -38,12 +38,19 @@ public abstract class GridObject : MonoBehaviour
         SnapToCurrentCellPosition();
     }
 
-    public void RequestAction(GridAction gridAction)
+    public bool RequestAction(GridAction gridAction)
     {
-        if (m_actionSystem.IsActionActive())
-            return;
+        if (HasActionActive())
+            return false;
 
         m_actionSystem.SetCurrentAction(gridAction);
+
+        return true;
+    }
+
+    public bool HasActionActive()
+    {
+        return m_actionSystem.IsActionActive();
     }
 
     public bool HasFlag(EGridObjectFlags flag)
