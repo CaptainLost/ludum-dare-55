@@ -25,6 +25,8 @@ public class MoveAction : GridAction
 
         if (m_isActionValid)
         {
+            EventBus<ObjectLeaveCellEvent>.Invoke(new ObjectLeaveCellEvent(m_owningObject.GridObjectData.GridPosition, m_owningObject));
+
             m_owningObject.GridObjectData.GridPosition = m_cellTargetPosition;
         }
     }
