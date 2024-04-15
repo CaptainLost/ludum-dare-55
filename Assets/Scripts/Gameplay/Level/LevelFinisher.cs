@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
+using Zenject;
 
 public class LevelFinisher : MonoBehaviour
 {
@@ -12,6 +13,8 @@ public class LevelFinisher : MonoBehaviour
 
     public UnityEvent OnLevelFinished;
 
+    [Inject]
+    private LevelLoader m_levelLoader;
     private int m_activeSignals = 0;
 
     private void OnEnable()
