@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 
@@ -24,17 +25,22 @@ public class PlayerMovement : MonoBehaviour
             return false;
 
         Vector3Int targetPosition = gridObject.GridObjectData.GridPosition + moveInput;
-        GridObject objectAtTarget = m_gridManager.GetObjectAtCell(targetPosition);
 
-        if (objectAtTarget != null
-            && objectAtTarget.HasFlag(EGridObjectFlags.Dynamic_Collision)
-            && gridObject.HasFlag(EGridObjectFlags.Dynamic_Collision))
+        if (gridObject.HasFlag(EGridObjectFlags.Dynamic_Collision))
         {
-            if (!objectAtTarget.HasFlag(EGridObjectFlags.Pushable))
-                return false;
+            List<GridObject> objectsAtTarget = m_gridManager.GetObjectsAtCell(targetPosition);
 
-            if (!TryMoveAndPush(objectAtTarget, moveInput))
-                return false;
+            foreach (GridObject testedObject in objectsAtTarget)
+            {
+                if (!testedObject.HasFlag(EGridObjectFlags.Dynamic_Collision))
+                    continue;
+
+                if (!testedObject.HasFlag(EGridObjectFlags.Pushable))
+                    return false;
+
+                if (!TryMoveAndPush(testedObject, moveInput))
+                    return false;
+            }
         }
 
         MoveAction moveAction = new MoveAction(gridObject, m_gridManager, targetPosition, m_moveSpeed);
