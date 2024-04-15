@@ -1,5 +1,6 @@
 using UnityEngine;
 
+[DefaultExecutionOrder(-1000)]
 public class InputManager : MonoBehaviour
 {
     public PlayerInput InputAsset;

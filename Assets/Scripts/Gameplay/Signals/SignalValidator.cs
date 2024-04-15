@@ -6,26 +6,26 @@ using UnityEngine.Events;
 public class SignalValidator : MonoBehaviour
 {
     [SerializeField]
-    private List<SignalReceiverObject> m_signalReceivers;
+    protected List<SignalReceiverObject> m_signalReceivers;
     [SerializeField]
-    private UnityEvent m_onAllSignalsReceived;
+    protected UnityEvent m_onAllSignalsReceived;
     [SerializeField]
-    private UnityEvent m_onSignalLost;
+    protected UnityEvent m_onSignalLost;
 
-    private int m_activeSignals = 0;
-    private bool m_active;
+    protected int m_activeSignals = 0;
+    protected bool m_active;
 
-    private void OnEnable()
+    protected void OnEnable()
     {
         RegisterSignalEvents();
     }
 
-    private void OnDisable()
+    protected void OnDisable()
     {
         UnregisterSignalEvents();
     }
 
-    private void RegisterSignalEvents()
+    protected void RegisterSignalEvents()
     {
         foreach (SignalReceiverObject receiver in m_signalReceivers)
         {
@@ -33,7 +33,7 @@ public class SignalValidator : MonoBehaviour
         }
     }
 
-    private void UnregisterSignalEvents()
+    protected void UnregisterSignalEvents()
     {
         foreach (SignalReceiverObject receiver in m_signalReceivers)
         {
@@ -41,7 +41,7 @@ public class SignalValidator : MonoBehaviour
         }
     }
 
-    private void OnAnySignalUpdated(bool active)
+    protected virtual void OnAnySignalUpdated(bool active)
     {
         if (active)
         {
@@ -54,6 +54,8 @@ public class SignalValidator : MonoBehaviour
             if (m_active)
             {
                 m_onSignalLost?.Invoke();
+
+                m_active = false;
             }
         }
 

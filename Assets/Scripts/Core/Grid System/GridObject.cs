@@ -38,6 +38,11 @@ public class GridObject : MonoBehaviour
         SnapToCurrentCellPosition();
     }
 
+    public virtual void Move(Vector3Int newPosition)
+    {
+        GridObjectData.GridPosition = newPosition;
+    }
+
     public bool RequestAction(GridAction gridAction)
     {
         if (HasActionActive())
