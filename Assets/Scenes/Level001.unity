@@ -4682,7 +4682,7 @@ MonoBehaviour:
   m_LightType: 3
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.5
-  m_Color: {r: 0, g: 0.20677495, b: 1, a: 1}
+  m_Color: {r: 0.080822945, g: 1, b: 0, a: 1}
   m_Intensity: 2
   m_LightVolumeIntensity: 1
   m_LightVolumeIntensityEnabled: 0
@@ -11504,7 +11504,7 @@ SpriteRenderer:
   m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 86246a5898af8e049b4c569879d52851, type: 3}
-  m_Color: {r: 0, g: 0.18836021, b: 1, a: 1}
+  m_Color: {r: 0.015797434, g: 0.6698113, b: 0.055140518, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -12181,6 +12181,53 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6541b92caf34ac409e98a65a6a00344, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1945273270
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1945273271}
+  - component: {fileID: 1945273272}
+  m_Layer: 0
+  m_Name: Level
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1945273271
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1945273270}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2054639778}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1945273272
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1945273270}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d918c29360ca40544a547e92843c89cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_gameFinisherSignals:
+  - {fileID: 780623006}
+  - {fileID: 1697366317}
 --- !u!1 &2054639777
 GameObject:
   m_ObjectHideFlags: 0
@@ -12210,6 +12257,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1945273271}
   - {fileID: 1327832268}
   - {fileID: 886677696}
   m_Father: {fileID: 0}
