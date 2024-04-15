@@ -9,8 +9,11 @@ public class SignalValidator : MonoBehaviour
     private List<SignalReceiverObject> m_signalReceivers;
     [SerializeField]
     private UnityEvent m_onAllSignalsReceived;
+    [SerializeField]
+    private UnityEvent m_onSignalLost;
 
     private int m_activeSignals = 0;
+    private bool m_active;
 
     private void OnEnable()
     {
@@ -47,11 +50,18 @@ public class SignalValidator : MonoBehaviour
         else
         {
             m_activeSignals--;
+
+            if (m_active)
+            {
+                m_onSignalLost?.Invoke();
+            }
         }
 
         if (m_activeSignals >= m_signalReceivers.Count)
         {
             m_onAllSignalsReceived?.Invoke();
+
+            m_active = true;
         }
     }
 }

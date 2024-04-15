@@ -47,3 +47,6 @@ TagManager:
   - name: Dynamic
     uniqueID: 3475241187
     locked: 0
+  - name: Effects
+    uniqueID: 3042763441
+    locked: 0

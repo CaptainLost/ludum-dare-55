@@ -13,8 +13,8 @@ public class GridObject : MonoBehaviour
 {
     [SerializeField]
     private ActionSystem m_actionSystem;
-    [SerializeField]
-    private EGridObjectFlags m_objectFlags;
+
+    public EGridObjectFlags ObjectFlags;
 
     public GridObjectData GridObjectData { get; private set; }
 
@@ -55,7 +55,7 @@ public class GridObject : MonoBehaviour
 
     public bool HasFlag(EGridObjectFlags flag)
     {
-        return m_objectFlags.HasFlag(flag);
+        return ObjectFlags.HasFlag(flag);
     }
 
     private void SnapToCurrentCellPosition()
