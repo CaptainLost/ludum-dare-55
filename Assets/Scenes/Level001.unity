@@ -3992,9 +3992,9 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -819726109
   m_SortingLayer: 2
-  m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 86246a5898af8e049b4c569879d52851, type: 3}
-  m_Color: {r: 0.48235294, g: 0.007843138, b: 0.007843138, a: 1}
+  m_SortingOrder: 1
+  m_Sprite: {fileID: 21300000, guid: 3737f39eccae8034284a163e87cf299f, type: 3}
+  m_Color: {r: 0.6745098, g: 0, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -4354,7 +4354,7 @@ MonoBehaviour:
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.5
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 0.5
+  m_Intensity: 0.7
   m_LightVolumeIntensity: 1
   m_LightVolumeIntensityEnabled: 0
   m_ApplyToSortingLayers: 0000000063a16637e3f823cf
@@ -11502,7 +11502,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -819726109
   m_SortingLayer: 2
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 86246a5898af8e049b4c569879d52851, type: 3}
   m_Color: {r: 0.015797434, g: 0.6698113, b: 0.055140518, a: 1}
   m_FlipX: 0
@@ -11526,7 +11526,7 @@ GameObject:
   - component: {fileID: 1225280749}
   - component: {fileID: 1225280751}
   m_Layer: 0
-  m_Name: Red Pushable Box
+  m_Name: Red Altar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12190,6 +12190,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1945273271}
+  - component: {fileID: 1945273273}
   - component: {fileID: 1945273272}
   m_Layer: 0
   m_Name: Level
@@ -12225,15 +12226,42 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d918c29360ca40544a547e92843c89cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_gameFinisherSignals:
-  - {fileID: 780623006}
-  - {fileID: 1697366317}
   m_nextLevel:
     m_SceneAsset: {fileID: 102900000, guid: feed16b7ee93cba469597241a1375cf7, type: 3}
     m_SceneName: Level002
   OnLevelFinished:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &1945273273
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1945273270}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8bf6c7dfff9710844b491a818a49fb80, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_signalReceivers:
+  - {fileID: 780623006}
+  - {fileID: 1697366317}
+  m_onAllSignalsReceived:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1945273272}
+        m_TargetAssemblyTypeName: LevelFinisher, Assembly-CSharp
+        m_MethodName: FinishGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &2054639777
 GameObject:
   m_ObjectHideFlags: 0

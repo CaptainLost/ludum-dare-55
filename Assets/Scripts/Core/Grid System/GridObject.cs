@@ -9,7 +9,7 @@ public class GridObjectData
     public Vector3Int GridPosition;
 }
 
-public abstract class GridObject : MonoBehaviour
+public class GridObject : MonoBehaviour
 {
     [SerializeField]
     private ActionSystem m_actionSystem;

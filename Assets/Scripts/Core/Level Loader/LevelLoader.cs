@@ -1,18 +1,31 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class LevelLoader : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField]
+    private LoadScreen m_loadScreen;
+
+    public void Load(string sceneName)
     {
-        
+        m_loadScreen.HideScreen(() => { LoadInternal(sceneName); });
     }
 
-    // Update is called once per frame
-    void Update()
+    private void LoadInternal(string sceneName)
     {
-        
+        StartCoroutine(LoadCoroutine(sceneName));
+    }
+
+    private IEnumerator LoadCoroutine(string sceneName)
+    {
+        AsyncOperation operation = SceneManager.LoadSceneAsync(sceneName);
+
+        while (!operation.isDone)
+        {
+            yield return new WaitForSeconds(0.1f);
+        }
+
+        m_loadScreen.ShowScreen(null);
     }
 }
