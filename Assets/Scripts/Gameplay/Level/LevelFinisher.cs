@@ -1,13 +1,14 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 public class LevelFinisher : MonoBehaviour
 {
     [SerializeField]
     private List<SignalReceiverObject> m_gameFinisherSignals;
+    [SerializeField]
+    private SceneField m_nextLevel;
 
     public UnityEvent OnLevelFinished;
 
@@ -53,7 +54,8 @@ public class LevelFinisher : MonoBehaviour
         if (m_activeSignals >= m_gameFinisherSignals.Count)
         {
             OnLevelFinished?.Invoke();
-            Debug.Log("Level finished");
+
+            SceneManager.LoadScene(m_nextLevel);
         }
     }
 }

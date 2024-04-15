@@ -11504,7 +11504,7 @@ SpriteRenderer:
   m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 86246a5898af8e049b4c569879d52851, type: 3}
-  m_Color: {r: 0.015797434, g: 0.6698113, b: 0.055140518, a: 1}
+  m_Color: {r: 0, g: 0.3253188, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -12229,8 +12229,8 @@ MonoBehaviour:
   - {fileID: 780623006}
   - {fileID: 1697366317}
   m_nextLevel:
-    m_SceneAsset: {fileID: 102900000, guid: feed16b7ee93cba469597241a1375cf7, type: 3}
-    m_SceneName: Level002
+    m_SceneAsset: {fileID: 0}
+    m_SceneName: 
   OnLevelFinished:
     m_PersistentCalls:
       m_Calls: []
